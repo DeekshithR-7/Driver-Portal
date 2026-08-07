@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<nav>
+
+    <h2>AUTOCAB Driver Portal</h2>
+
+    <a href="/logout">Logout</a>
+
+</nav>
+
+<div class="container">
+
+    <!-- Driver Information -->
+
+    <div class="card">
+
+        <h2>Welcome, {{ driver.driver_name }}</h2>
+
+        <br>
+
+        <p><b>Driver ID:</b> {{ driver.driver_id }}</p>
+
+        <p><b>Vehicle:</b> {{ driver.vehicle_no }}</p>
+
+        <p><b>Vehicle Type:</b> {{ driver.vehicle_type }}</p>
+
+        <p><b>Mobile:</b> {{ driver.mobile }}</p>
+
+    </div>
+
+    <!-- Summary -->
+
+    <div class="grid">
+
+        <div class="card">
+
+            <h3>Total Trips</h3>
+
+            <h1>{{ bill.total_trips }}</h1>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Gross Bill</h3>
+
+            <h1>₹ {{ "%.2f"|format(bill.gross_amount) }}</h1>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Final Bill</h3>
+
+            <h1>₹ {{ "%.2f"|format(bill.final_amount) }}</h1>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Status</h3>
+
+            <h2>{{ bill.payment_status }}</h2>
+
+        </div>
+
+    </div>
+
+    <!-- Recent Trips -->
+
+    <div class="card">
+
+        <h2>Recent Trips</h2>
+
+        <br>
+
+        <table>
+
+            <tr>
+
+                <th>Trip ID</th>
+
+                <th>Site</th>
+
+                <th>Location</th>
+
+                <th>Trip Type</th>
+
+                <th>Amount</th>
+
+            </tr>
+
+            {% for trip in trips %}
+
+            <tr>
+
+                <td>{{ trip.trip_id }}</td>
+
+                <td>{{ trip.site_name }}</td>
+
+                <td>{{ trip.location }}</td>
+
+                <td>{{ trip.trip_type }}</td>
+
+                <td>₹ {{ "%.2f"|format(trip.trip_rate) }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+    <!-- Navigation -->
+
+    <div class="buttons">
+
+        <a href="/billing">
+
+            Monthly Billing
+
+        </a>
+
+        <a href="/trips">
+
+            All Trips
+
+        </a>
+
+        <a href="/profile">
+
+            Profile
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
