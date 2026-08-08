@@ -36,8 +36,18 @@ def get_client():
 
 client = get_client()
 
-spreadsheet = client.open_by_key(GOOGLE_SHEET_ID)
+import time
+from gspread.exceptions import APIError
 
+for attempt in range(5):
+    try:
+        spreadsheet = client.open_by_key(GOOGLE_SHEET_ID)
+        break
+    except APIError as e:
+        print(f"Google API unavailable. Retry {attempt + 1}/5")
+        time.sleep(3)
+else:
+    raise Exception("Unable to connect to Google Sheets.")
 
 def get_sheet(sheet_name):
 

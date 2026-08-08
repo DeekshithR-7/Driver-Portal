@@ -23,7 +23,9 @@ from services.trip_service import (
 from services.billing_service import (
     get_driver_billing
 )
-
+from services.site_services import (
+     get_driver_site_summary
+)
 app = Flask(__name__)
 
 app.secret_key = SECRET_KEY
@@ -104,6 +106,10 @@ def dashboard():
         session["driver_id"]
     )
 
+    site_summary = get_driver_site_summary(
+        session["driver_id"]
+    )
+
     return render_template(
 
         "dashboard.html",
@@ -112,10 +118,11 @@ def dashboard():
 
         bill=bill,
 
-        trips=trips[:10]
+        trips=trips[:10],
+
+        site_summary=site_summary
 
     )
-
 
 # ==========================================
 # BILLING
@@ -183,6 +190,28 @@ def profile():
         "profile.html",
 
         driver=driver
+
+    )
+# ==========================================
+# SITE-WISE TRIPS
+# ==========================================
+
+@app.route("/site_wise_trips")
+def site_wise_trips():
+
+    if "driver_id" not in session:
+
+        return redirect(url_for("login"))
+
+    site_summary = get_driver_site_summary(
+        session["driver_id"]
+    )
+
+    return render_template(
+
+        "site_wise_trips.html",
+
+        site_summary=site_summary
 
     )
 

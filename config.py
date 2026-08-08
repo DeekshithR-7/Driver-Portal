@@ -12,3 +12,5 @@ DRIVER_SHEET = "Driver"
 TRIP_SHEET = "Trip_Details"
 
 BILLING_SHEET = "Monthly_Billing"
+
+SITE_SHEET = "Site_Wise_Trips"

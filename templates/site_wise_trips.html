@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Site-wise Trips</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<nav>
+
+    <h2>Site-wise Trips</h2>
+
+    <a href="/dashboard">Dashboard</a>
+
+</nav>
+
+<div class="container">
+
+    <div class="card">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Site</th>
+
+                    <th>Trips</th>
+
+                    <th>Escort</th>
+
+                    <th>Trip Amount</th>
+
+                    <th>Escort Amount</th>
+
+                    <th>Penalty</th>
+
+                    <th>Other</th>
+
+                    <th>Net Amount</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for site in site_summary %}
+
+                <tr>
+
+                    <td>{{ site.site_name }}</td>
+
+                    <td>{{ site.trip_count }}</td>
+
+                    <td>{{ site.escort_count }}</td>
+
+                    <td>₹ {{ "%.2f"|format(site.trip_amount) }}</td>
+
+                    <td>₹ {{ "%.2f"|format(site.escort_amount) }}</td>
+
+                    <td>₹ {{ "%.2f"|format(site.penalty) }}</td>
+
+                    <td>₹ {{ "%.2f"|format(site.other_amount) }}</td>
+
+                    <td><b>₹ {{ "%.2f"|format(site.net_amount) }}</b></td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
